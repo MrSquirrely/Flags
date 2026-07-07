@@ -1,0 +1,57 @@
+﻿@using System.Globalization
+
+<div class="flag" style="width: @(FriendlyWidth)px">
+    @for (int i = 0; i < NumOfColumns; i++) {
+        int index = i;
+
+        // Uniform billow amount for a smooth, non-shearing wave
+        double billowAmount = Billow;
+        int delay = FirstColumnDelay + (index * StaggeredDelay);
+
+        <div class="column"
+             style="--billow: @(billowAmount.ToString(CultureInfo.InvariantCulture))px; background: @GradientString; animation-delay: @(delay)ms;">
+        </div>
+    }
+</div>
+
+@code {
+    [Parameter] public string Variant { get; set; } = "rainbow";
+    [Parameter] public string[]? CustomColors { get; set; }
+    [Parameter] public double Width { get; set; } = 200;
+    [Parameter] public int NumOfColumns { get; set; } = 10;
+
+    // Slowed down for a gentle, fluid fabric look
+    [Parameter] public int StaggeredDelay { get; set; } = 150;
+    [Parameter] public double Billow { get; set; } = 3;
+
+    private double FriendlyWidth => Math.Round(Width / NumOfColumns) * NumOfColumns;
+    private int FirstColumnDelay => NumOfColumns * StaggeredDelay * -1;
+
+    private string GradientString => GenerateGradientString(GetColors());
+
+    private string[] GetColors() {
+        if (CustomColors != null && CustomColors.Length > 0) {
+            return CustomColors;
+        }
+
+        return FlagColors.Colors.TryGetValue(Variant, out string[]? colors)
+            ? colors
+            : FlagColors.Colors["rainbow"];
+    }
+
+    private static string GenerateGradientString(string[] colors) {
+        double numOfColors = colors.Length;
+        double segmentHeight = 100 / numOfColors;
+
+        List<string> gradientStops = new List<string>();
+
+        for (int i = 0; i < colors.Length; i++) {
+            double from = i * segmentHeight;
+            double to = (i + 1) * segmentHeight;
+
+            gradientStops.Add($"{colors[i]} {from.ToString(CultureInfo.InvariantCulture)}% {to.ToString(CultureInfo.InvariantCulture)}%");
+        }
+
+        return $"linear-gradient(to bottom, {string.Join(", ", gradientStops)})";
+    }
+}
