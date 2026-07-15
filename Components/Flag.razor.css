@@ -30,3 +30,18 @@
         border-top-right-radius: 8px;
         border-bottom-right-radius: 8px;
     }
+
+.waving-flag-animation {
+    transform-origin: left center;
+    animation: wave 2s ease-in-out infinite alternate;
+}
+
+@keyframes wave {
+    0% {
+        transform: perspective(400px) rotateY(0deg) translateY(0px);
+    }
+
+    100% {
+        transform: perspective(400px) rotateY(15deg) translateY(-5px);
+    }
+}
