@@ -12,7 +12,7 @@ To use these components, ensure your project targets `.NET 9.0` or higher and re
 * `Flags.csproj` - The project configuration file.
 * `Components/Flag.razor` - The main Blazor component for rendering the flag UI.
 * `Components/Flag.razor.css` - The scoped CSS file handling the wave animations.
-* `FlagColors.cs` - The backend C# file containing predefined color palettes.
+* `FlagColors.cs` - The backend C# file containing predefined color palettes and the `FlagColor` enum.
 
 Add the library namespace to your `_Imports.razor` file:
 
@@ -28,12 +28,17 @@ You can embed the flag component directly into your Razor views, MVC `.cshtml` p
 
 ### Basic Example
 ```razor
-<Flag Variant="trans" Width="300"/>
+<Flag Variant="FlagColor.Transgender" Width="300"/>
 ```
 
 ### Custom Colors Example
 ```razor
-<Flag CustomColors="@(new string[] { "hsl(0deg 90% 55%)", "hsl(120deg 90% 55%)", "hsl(240deg 90% 55%)" })" NumOfColumns="15"/>
+<Flag "hsl(120deg "hsl(240deg 55%)" 55%)", 90% CustomColors="@(new string[] { " NumOfColumns="15" hsl(0deg })"/>
+```
+
+### Logo Example
+```razor
+<Flag LogoUrl="/images/my-custom-logo.svg" Variant="FlagColor.RainbowOriginal"/>
 ```
 
 ---
@@ -42,12 +47,13 @@ You can embed the flag component directly into your Razor views, MVC `.cshtml` p
 
 The `Components/Flag.razor` architecture supports customization through the following parameters:
 
-* **`Variant`** (`string`): The name of a predefined flag color scheme from `FlagColors.cs`. Defaults to `"rainbow"`.
+* **`Variant`** (`FlagColor`): A predefined flag color scheme from the `FlagColor` enum. Defaults to `FlagColor.RainbowOriginal`.
 * **`CustomColors`** (`string[]?`): An optional array of CSS color strings (e.g., HEX, HSL, RGB) to build a custom top-to-bottom striped flag. If provided, this overrides the selected `Variant`.
 * **`Width`** (`double`): The rendering target width of the flag in pixels. Defaults to `200`.
 * **`NumOfColumns`** (`int`): The number of individual vertical elements making up the flag. More columns create a higher-fidelity wave. Defaults to `10`.
 * **`StaggeredDelay`** (`int`): The animation delay offset (in milliseconds) added sequentially per column to establish the fluid ripple effect. Defaults to `150`.
 * **`Billow`** (`double`): The intensity / peak vertical distance (in pixels) of the ripple animation oscillation. Defaults to `3`.
+* **`LogoUrl`** (`string`): An optional URL to an image or SVG to display centered across the waving flag.
 
 ---
 
@@ -55,15 +61,15 @@ The `Components/Flag.razor` architecture supports customization through the foll
 
 The library includes built-in color maps in `FlagColors.cs` for the following flag variants:
 
-| Variant Key | Description / Colors Included |
+| `FlagColor` Enum | Description / Colors Included |
 | :--- | :--- |
-| `"rainbow"` | 8-stripe representation (including dark accent bands) |
-| `"rainbow-original"` | Classic 6-stripe layout |
-| `"trans"` | Pastel blue, pastel pink, and white stripes |
-| `"pan"` | Bright magenta, yellow, and cyan stripes |
-| `"bi"` | Deep pink, purple, and blue stripes |
-| `"nonbinary"` | Yellow, white, purple, and dark gray stripes |
-| `"lesbian"` | Seven-stripe shades of orange, white, and pink |
+| `FlagColor.Rainbow` | 8-stripe representation (including dark accent bands) |
+| `FlagColor.RainbowOriginal` | Classic 6-stripe layout |
+| `FlagColor.Transgender` | Pastel blue, pastel pink, and white stripes |
+| `FlagColor.Pansexual` | Bright magenta, yellow, and cyan stripes |
+| `FlagColor.Bisexual` | Deep pink, purple, and blue stripes |
+| `FlagColor.NonBinary` | Yellow, white, purple, and dark gray stripes |
+| `FlagColor.Lesbian` | Seven-stripe shades of orange, white, and pink |
 
 ---
 
