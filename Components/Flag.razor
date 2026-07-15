@@ -4,9 +4,19 @@
     @for (int i = 0; i < NumOfColumns; i++) {
         double billowAmount = Billow;
         int delay = FirstColumnDelay + (i * StaggeredDelay);
+        double colWidth = FriendlyWidth / NumOfColumns;
+        double offsetX = i * colWidth;
 
         <div class="column"
-             style="--billow: @(billowAmount.ToString(CultureInfo.InvariantCulture))px; background: @GradientString; animation-delay: @(delay)ms;">
+             style="--billow: @(billowAmount.ToString(CultureInfo.InvariantCulture))px; background: @GradientString; animation-delay: @(delay)ms; position: relative; overflow: hidden;">
+
+            @if (!string.IsNullOrWhiteSpace(LogoUrl)) {
+                <div style="position: absolute; top: 0; left: -@(offsetX.ToString(CultureInfo.InvariantCulture))px; width: @(FriendlyWidth.ToString(CultureInfo.InvariantCulture))px; height: 100%; display: flex; align-items: center; justify-content: center; pointer-events: none;">
+
+                    <img src="@LogoUrl" style="max-width: 45%; max-height: 60%; object-fit: contain;" alt="Custom Flag Logo" />
+
+                </div>
+            }
         </div>
     }
 </div>
@@ -16,14 +26,14 @@
     [Parameter] public string[]? CustomColors { get; set; }
     [Parameter] public double Width { get; set; } = 200;
     [Parameter] public int NumOfColumns { get; set; } = 10;
-
-    // Slowed down for a gentle, fluid fabric look
     [Parameter] public int StaggeredDelay { get; set; } = 150;
     [Parameter] public double Billow { get; set; } = 3;
 
+    // Parameter to accept the SVG URL
+    [Parameter] public string LogoUrl { get; set; } = string.Empty;
+
     private double FriendlyWidth => Math.Round(Width / NumOfColumns) * NumOfColumns;
     private int FirstColumnDelay => NumOfColumns * StaggeredDelay * -1;
-
     private string GradientString => GenerateGradientString(GetColors());
 
     private string[] GetColors() {
@@ -41,7 +51,6 @@
         double segmentHeight = 100 / numOfColors;
 
         List<string> gradientStops = [];
-
         for (int i = 0; i < colors.Length; i++) {
             double from = i * segmentHeight;
             double to = (i + 1) * segmentHeight;
