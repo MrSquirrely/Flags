@@ -2,11 +2,8 @@
 
 <div class="flag" style="width: @(FriendlyWidth)px">
     @for (int i = 0; i < NumOfColumns; i++) {
-        int index = i;
-
-        // Uniform billow amount for a smooth, non-shearing wave
         double billowAmount = Billow;
-        int delay = FirstColumnDelay + (index * StaggeredDelay);
+        int delay = FirstColumnDelay + (i * StaggeredDelay);
 
         <div class="column"
              style="--billow: @(billowAmount.ToString(CultureInfo.InvariantCulture))px; background: @GradientString; animation-delay: @(delay)ms;">
@@ -15,7 +12,7 @@
 </div>
 
 @code {
-    [Parameter] public string Variant { get; set; } = "rainbow";
+    [Parameter] public FlagColor Variant { get; set; } = FlagColor.RainbowOriginal;
     [Parameter] public string[]? CustomColors { get; set; }
     [Parameter] public double Width { get; set; } = 200;
     [Parameter] public int NumOfColumns { get; set; } = 10;
@@ -30,20 +27,20 @@
     private string GradientString => GenerateGradientString(GetColors());
 
     private string[] GetColors() {
-        if (CustomColors != null && CustomColors.Length > 0) {
+        if (CustomColors is { Length: > 0 }) {
             return CustomColors;
         }
 
         return FlagColors.Colors.TryGetValue(Variant, out string[]? colors)
             ? colors
-            : FlagColors.Colors["rainbow"];
+            : FlagColors.Colors[FlagColor.RainbowOriginal];
     }
 
     private static string GenerateGradientString(string[] colors) {
         double numOfColors = colors.Length;
         double segmentHeight = 100 / numOfColors;
 
-        List<string> gradientStops = new List<string>();
+        List<string> gradientStops = [];
 
         for (int i = 0; i < colors.Length; i++) {
             double from = i * segmentHeight;
