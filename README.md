@@ -1,6 +1,6 @@
 # Waving Flags
 
-A Blazor component library providing fluid, CSS-animated waving pride flags. The wave effects use a synchronized columnar delay to achieve a heavy, realistic fabric feel.
+A Blazor component library providing fluid, CSS-animated waving flags: LGBTQ+ pride flags, the ten most populous countries' flags, kink pride flags, or your own stripes and logo. The wave effect uses a synchronized columnar delay to achieve a heavy, realistic fabric feel.
 
 This project is inspired by the animation work of [Josh W. Comeau](https://www.joshwcomeau.com/animation/pride-flags/).
 
@@ -8,16 +8,23 @@ This project is inspired by the animation work of [Josh W. Comeau](https://www.j
 
 ## Installation & Setup
 
-To use these components, ensure your project targets `.NET 9.0` or higher and references your Blazor environment. The library layout follows the structure of `mrsquirrely/flags` and includes the following core files:
-* `Flags.csproj` - The project configuration file.
-* `Components/Flag.razor` - The main Blazor component for rendering the flag UI.
-* `Components/Flag.razor.css` - The scoped CSS file handling the wave animations.
-* `FlagColors.cs` - The backend C# file containing predefined color palettes and the `FlagColor` enum.
+Your project needs to target `.NET 9.0` or higher. The library contains:
+* `Components/Flag.razor` - The `Flag` component.
+* `Components/Flag.razor.css` - Scoped CSS for the wave animation and the designed flags.
+* `wwwroot/flags/*.svg` - The designs for flags that are more than plain stripes (Progress Pride, countries, kink flags, ...).
+* `FlagCatalog.cs`, `FlagDefinition.cs`, `FlagColor.cs`, `FlagCategory.cs` - The built-in flags.
 
-Add the library namespace to your `_Imports.razor` file:
+Add the namespaces to your `_Imports.razor` file:
 
 ```razor
 @using Flags
+@using Flags.Components
+```
+
+Blazor apps pick up the component's stylesheet through their `{App}.styles.css` bundle. Razor Pages and MVC apps link it directly:
+
+```html
+<link href="~/_content/Flags/Flags.bundle.scp.css" rel="stylesheet" asp-append-version="true" />
 ```
 
 ---
@@ -33,7 +40,7 @@ You can embed the flag component directly into your Razor views, MVC `.cshtml` p
 
 ### Custom Colors Example
 ```razor
-<Flag "hsl(120deg "hsl(240deg 55%)" 55%)", 90% CustomColors="@(new string[] { " NumOfColumns="15" hsl(0deg })"/>
+<Flag CustomColors="@(new string[] { "hsl(0deg 90% 55%)", "hsl(120deg 90% 55%)", "hsl(240deg 90% 55%)" })" NumOfColumns="15"/>
 ```
 
 ### Logo Example
@@ -41,35 +48,92 @@ You can embed the flag component directly into your Razor views, MVC `.cshtml` p
 <Flag LogoUrl="/images/my-custom-logo.svg" Variant="FlagColor.RainbowOriginal"/>
 ```
 
+### Listing Every Flag
+```razor
+@foreach (FlagDefinition flag in FlagCatalog.InCategory(FlagCategory.Pride)) {
+    <Flag Variant="flag.Variant" Width="90" Label="@flag.Name"/>
+}
+```
+
+### Razor Pages / MVC
+```cshtml
+<component type="typeof(Flag)" render-mode="Static" param-Variant="@FlagColor.ProgressPride" param-Width="(double)64" />
+```
+
 ---
 
 ## Component Parameters
 
-The `Components/Flag.razor` architecture supports customization through the following parameters:
-
-* **`Variant`** (`FlagColor`): A predefined flag color scheme from the `FlagColor` enum. Defaults to `FlagColor.RainbowOriginal`.
+* **`Variant`** (`FlagColor`): A built-in flag. Defaults to `FlagColor.RainbowOriginal`.
 * **`CustomColors`** (`string[]?`): An optional array of CSS color strings (e.g., HEX, HSL, RGB) to build a custom top-to-bottom striped flag. If provided, this overrides the selected `Variant`.
-* **`Width`** (`double`): The rendering target width of the flag in pixels. Defaults to `200`.
-* **`NumOfColumns`** (`int`): The number of individual vertical elements making up the flag. More columns create a higher-fidelity wave. Defaults to `10`.
+* **`Width`** (`double`): The rendering target width of the flag in pixels, rounded to a whole number of pixels per column. The height follows at 3:2. Defaults to `200`.
+* **`NumOfColumns`** (`int`): The number of individual vertical elements making up the flag. More columns create a higher-fidelity wave. Defaults to `10`; values below `1` are treated as `1`.
 * **`StaggeredDelay`** (`int`): The animation delay offset (in milliseconds) added sequentially per column to establish the fluid ripple effect. Defaults to `150`.
-* **`Billow`** (`double`): The intensity / peak vertical distance (in pixels) of the ripple animation oscillation. Defaults to `3`.
+* **`Billow`** (`double`): The intensity / peak vertical distance (in pixels) of the ripple animation oscillation. Defaults to `3`. Animation is disabled for visitors who set `prefers-reduced-motion`.
 * **`LogoUrl`** (`string`): An optional URL to an image or SVG to display centered across the waving flag.
+* **`Label`** (`string?`): An optional accessible name (e.g. `"Transgender pride flag"`). When set, the flag is exposed as an image with that name; when omitted, the flag is treated as decorative and hidden from screen readers.
 
 ---
 
-## Predefined Variants
+## Built-in Flags
 
-The library includes built-in color maps in `FlagColors.cs` for the following flag variants:
+`FlagCatalog.All` lists every flag as a `FlagDefinition` (variant, display name, category, stripe colors), and `FlagCatalog.Get(variant)` returns one. Flags marked *design* are drawn from an SVG in `wwwroot/flags`; their stripe colors show while the SVG loads.
 
-| `FlagColor` Enum | Description / Colors Included |
-| :--- | :--- |
-| `FlagColor.Rainbow` | 8-stripe representation (including dark accent bands) |
-| `FlagColor.RainbowOriginal` | Classic 6-stripe layout |
-| `FlagColor.Transgender` | Pastel blue, pastel pink, and white stripes |
-| `FlagColor.Pansexual` | Bright magenta, yellow, and cyan stripes |
-| `FlagColor.Bisexual` | Deep pink, purple, and blue stripes |
-| `FlagColor.NonBinary` | Yellow, white, purple, and dark gray stripes |
-| `FlagColor.Lesbian` | Seven-stripe shades of orange, white, and pink |
+### Pride (`FlagCategory.Pride`)
+
+| `FlagColor` | Name | Notes |
+| :--- | :--- | :--- |
+| `RainbowOriginal` | Rainbow Pride | Classic 6 stripes |
+| `Rainbow` | Philadelphia Pride | 6 stripes plus black and brown |
+| `GilbertBaker` | Gilbert Baker Pride (1978) | Original 8 stripes |
+| `ProgressPride` | Progress Pride | Design |
+| `IntersexInclusiveProgress` | Intersex-Inclusive Progress Pride | Design |
+| `Lesbian` | Lesbian | 5 stripes |
+| `Gay` | Gay Men | 7 stripes |
+| `Bisexual` | Bisexual | 2:1:2 stripes |
+| `Pansexual` | Pansexual | |
+| `Polysexual` | Polysexual | |
+| `Omnisexual` | Omnisexual | |
+| `Asexual` | Asexual | |
+| `Demisexual` | Demisexual | Design |
+| `Graysexual` | Graysexual | |
+| `Aromantic` | Aromantic | |
+| `Demiromantic` | Demiromantic | Design |
+| `AroAce` | Aroace | |
+| `Polyamory` | Polyamory | Design, the 2022 tricolor |
+| `Transgender` | Transgender | |
+| `NonBinary` | Non-Binary | |
+| `Genderfluid` | Genderfluid | |
+| `Genderqueer` | Genderqueer | |
+| `Agender` | Agender | |
+| `Bigender` | Bigender | |
+| `Demigirl` | Demigirl | |
+| `Demiboy` | Demiboy | |
+| `Intersex` | Intersex | Design |
+
+### Countries (`FlagCategory.Country`)
+
+The ten most populous countries. All flags are drawn at 3:2, so flags with other official proportions (e.g. the United States at 19:10) are slightly stretched. Brazil and Mexico use simplified emblems, without the motto or the full coat of arms.
+
+`India`, `China`, `UnitedStates`, `Indonesia`, `Pakistan`, `Nigeria`, `Brazil`, `Bangladesh`, `Russia`, `Mexico`
+
+### Kink (`FlagCategory.Kink`)
+
+| `FlagColor` | Name | Notes |
+| :--- | :--- | :--- |
+| `Leather` | Leather Pride | 9 black and blue stripes, white center, red heart |
+| `BdsmRights` | BDSM Rights | Leather stripes with a simplified red BDSM emblem |
+| `PuppyPride` | Puppy Pride | Diagonal stripes with a red bone |
+| `RubberPride` | Rubber Pride | Black with a kinked gold band outlined in red |
+
+---
+
+## Upgrading from the first release
+
+* `FlagColors.Colors` is replaced by the read-only `FlagCatalog`.
+* The `GetDisplayName()` extension on every `Enum` is removed (it clashed with apps that define their own); use `FlagCatalog.Get(variant).Name`.
+* `Rainbow` is now named "Philadelphia Pride" and `RainbowOriginal` "Rainbow Pride".
+* The bisexual flag now uses its official 2:1:2 stripe proportions.
 
 ---
 

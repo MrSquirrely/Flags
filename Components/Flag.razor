@@ -1,20 +1,12 @@
-﻿@using System.Globalization
+<div class="@_cssClass" style="width: @(FlagCatalog.Css(_width))px; --flag-w: @(FlagCatalog.Css(_width))px; --billow: @(FlagCatalog.Css(Billow))px; --flag-bg: @_background;" @attributes="_accessibilityAttributes">
+    @for (int i = 0; i < _columns; i++) {
+        string offset = FlagCatalog.Css(-(i * _columnWidth));
 
-<div class="flag" style="width: @(FriendlyWidth)px">
-    @for (int i = 0; i < NumOfColumns; i++) {
-        double billowAmount = Billow;
-        int delay = FirstColumnDelay + (i * StaggeredDelay);
-        double colWidth = FriendlyWidth / NumOfColumns;
-        double offsetX = i * colWidth;
-
-        <div class="column"
-             style="--billow: @(billowAmount.ToString(CultureInfo.InvariantCulture))px; background: @GradientString; animation-delay: @(delay)ms; position: relative; overflow: hidden;">
-
-            @if (!string.IsNullOrWhiteSpace(LogoUrl)) {
-                <div style="position: absolute; top: 0; left: -@(offsetX.ToString(CultureInfo.InvariantCulture))px; width: @(FriendlyWidth.ToString(CultureInfo.InvariantCulture))px; height: 100%; display: flex; align-items: center; justify-content: center; pointer-events: none;">
-
-                    <img src="@LogoUrl" style="max-width: 45%; max-height: 60%; object-fit: contain;" alt="Custom Flag Logo" />
-
+        @* Every column paints the full-width design shifted left, so it shows only its own slice and the design waves with the fabric *@
+        <div class="column" style="animation-delay: @(_firstDelay + (i * StaggeredDelay))ms; background-position: @(offset)px 0;">
+            @if (_hasLogo) {
+                <div class="logo" style="left: @(offset)px;">
+                    <img src="@LogoUrl" alt="" decoding="async" />
                 </div>
             }
         </div>
@@ -22,6 +14,17 @@
 </div>
 
 @code {
+    private static readonly Dictionary<string, object> DecorativeAttributes = new() { ["aria-hidden"] = "true" };
+
+    private int _columns;
+    private double _columnWidth;
+    private double _width;
+    private int _firstDelay;
+    private bool _hasLogo;
+    private string _cssClass = "flag";
+    private string _background = string.Empty;
+    private Dictionary<string, object> _accessibilityAttributes = DecorativeAttributes;
+
     [Parameter] public FlagColor Variant { get; set; } = FlagColor.RainbowOriginal;
     [Parameter] public string[]? CustomColors { get; set; }
     [Parameter] public double Width { get; set; } = 200;
@@ -29,35 +32,31 @@
     [Parameter] public int StaggeredDelay { get; set; } = 150;
     [Parameter] public double Billow { get; set; } = 3;
 
-    // Parameter to accept the SVG URL
+    // URL of an image or SVG drawn centered across the flag
     [Parameter] public string LogoUrl { get; set; } = string.Empty;
 
-    private double FriendlyWidth => Math.Round(Width / NumOfColumns) * NumOfColumns;
-    private int FirstColumnDelay => NumOfColumns * StaggeredDelay * -1;
-    private string GradientString => GenerateGradientString(GetColors());
+    // Accessible name for the flag; when empty the flag is treated as decorative and hidden from assistive tech
+    [Parameter] public string? Label { get; set; }
 
-    private string[] GetColors() {
+    protected override void OnParametersSet() {
+        _columns = Math.Max(1, NumOfColumns);
+        _columnWidth = Math.Round(Width / _columns);
+        _width = _columnWidth * _columns;
+        _firstDelay = -(_columns * StaggeredDelay);
+        _hasLogo = !string.IsNullOrWhiteSpace(LogoUrl);
+
         if (CustomColors is { Length: > 0 }) {
-            return CustomColors;
+            _background = FlagCatalog.BuildGradient(CustomColors, false);
+            _cssClass = "flag";
+        }
+        else {
+            FlagDefinition definition = FlagCatalog.Get(Variant);
+            _background = FlagCatalog.GetBackground(definition.Variant);
+            _cssClass = definition.Image is null ? "flag" : $"flag flag-{definition.Image}";
         }
 
-        return FlagColors.Colors.TryGetValue(Variant, out string[]? colors)
-            ? colors
-            : FlagColors.Colors[FlagColor.RainbowOriginal];
-    }
-
-    private static string GenerateGradientString(string[] colors) {
-        double numOfColors = colors.Length;
-        double segmentHeight = 100 / numOfColors;
-
-        List<string> gradientStops = [];
-        for (int i = 0; i < colors.Length; i++) {
-            double from = i * segmentHeight;
-            double to = (i + 1) * segmentHeight;
-
-            gradientStops.Add($"{colors[i]} {from.ToString(CultureInfo.InvariantCulture)}% {to.ToString(CultureInfo.InvariantCulture)}%");
-        }
-
-        return $"linear-gradient(to bottom, {string.Join(", ", gradientStops)})";
+        _accessibilityAttributes = string.IsNullOrWhiteSpace(Label)
+            ? DecorativeAttributes
+            : new() { ["role"] = "img", ["aria-label"] = Label };
     }
 }

@@ -1,4 +1,4 @@
-﻿@keyframes oscillate {
+@keyframes oscillate {
     from {
         transform: translateY(var(--billow));
     }
@@ -14,9 +14,12 @@
 }
 
 .column {
+    position: relative;
+    overflow: hidden;
     flex: 1;
-    display: flex;
-    flex-direction: column;
+    background: var(--flag-bg);
+    background-size: var(--flag-w) 100%;
+    background-repeat: no-repeat;
     /* 800ms duration gives it that heavier fabric feel */
     animation: oscillate 800ms alternate infinite ease-in-out both;
 }
@@ -31,17 +34,94 @@
         border-bottom-right-radius: 8px;
     }
 
-.waving-flag-animation {
-    transform-origin: left center;
-    animation: wave 2s ease-in-out infinite alternate;
+.logo {
+    position: absolute;
+    top: 0;
+    width: var(--flag-w);
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    pointer-events: none;
 }
 
-@keyframes wave {
-    0% {
-        transform: perspective(400px) rotateY(0deg) translateY(0px);
+    .logo img {
+        max-width: 45%;
+        max-height: 60%;
+        object-fit: contain;
     }
 
-    100% {
-        transform: perspective(400px) rotateY(15deg) translateY(-5px);
+@media (prefers-reduced-motion: reduce) {
+    .column {
+        animation: none;
     }
+}
+
+/* Designed flags: the SVG is layered over the stripe fallback. Paths are relative to this stylesheet, which lives in _content/Flags */
+.flag-bangladesh > .column {
+    background-image: url("flags/bangladesh.svg"), var(--flag-bg);
+}
+
+.flag-bdsm-rights > .column {
+    background-image: url("flags/bdsm-rights.svg"), var(--flag-bg);
+}
+
+.flag-brazil > .column {
+    background-image: url("flags/brazil.svg"), var(--flag-bg);
+}
+
+.flag-china > .column {
+    background-image: url("flags/china.svg"), var(--flag-bg);
+}
+
+.flag-demiromantic > .column {
+    background-image: url("flags/demiromantic.svg"), var(--flag-bg);
+}
+
+.flag-demisexual > .column {
+    background-image: url("flags/demisexual.svg"), var(--flag-bg);
+}
+
+.flag-india > .column {
+    background-image: url("flags/india.svg"), var(--flag-bg);
+}
+
+.flag-intersex > .column {
+    background-image: url("flags/intersex.svg"), var(--flag-bg);
+}
+
+.flag-intersex-inclusive-progress > .column {
+    background-image: url("flags/intersex-inclusive-progress.svg"), var(--flag-bg);
+}
+
+.flag-leather > .column {
+    background-image: url("flags/leather.svg"), var(--flag-bg);
+}
+
+.flag-mexico > .column {
+    background-image: url("flags/mexico.svg"), var(--flag-bg);
+}
+
+.flag-pakistan > .column {
+    background-image: url("flags/pakistan.svg"), var(--flag-bg);
+}
+
+.flag-polyamory > .column {
+    background-image: url("flags/polyamory.svg"), var(--flag-bg);
+}
+
+.flag-progress-pride > .column {
+    background-image: url("flags/progress-pride.svg"), var(--flag-bg);
+}
+
+.flag-puppy-pride > .column {
+    background-image: url("flags/puppy-pride.svg"), var(--flag-bg);
+}
+
+.flag-rubber-pride > .column {
+    background-image: url("flags/rubber-pride.svg"), var(--flag-bg);
+}
+
+.flag-united-states > .column {
+    background-image: url("flags/united-states.svg"), var(--flag-bg);
 }
