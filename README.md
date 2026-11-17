@@ -1,6 +1,6 @@
 # Waving Flags
 
-A Blazor component library providing fluid, CSS-animated waving flags: LGBTQ+ pride flags, the ten most populous countries' flags, kink pride flags, or your own stripes and logo. The wave effect uses a synchronized columnar delay to achieve a heavy, realistic fabric feel.
+A Blazor component library providing fluid, CSS-animated waving flags: LGBTQ+ pride flags, the ten most populous countries' flags, kink pride flags, community flags, or your own stripes and logo. The wave effect uses a synchronized columnar delay to achieve a heavy, realistic fabric feel.
 
 This project is inspired by the animation work of [Josh W. Comeau](https://www.joshwcomeau.com/animation/pride-flags/).
 
@@ -110,6 +110,21 @@ You can embed the flag component directly into your Razor views, MVC `.cshtml` p
 | `Demigirl` | Demigirl | |
 | `Demiboy` | Demiboy | |
 | `Intersex` | Intersex | Design |
+| `Transfeminine` | Transfeminine | |
+| `Transmasculine` | Transmasculine | |
+| `Pangender` | Pangender | |
+| `Genderflux` | Genderflux | |
+| `Neutrois` | Neutrois | |
+| `Androgyne` | Androgyne | |
+| `Maverique` | Maverique | |
+| `Xenogender` | Xenogender | |
+| `TwoSpirit` | Two-Spirit | Design, rainbow with two feathers in a circle |
+| `Queer` | Queer | The 2015 flag, 8 stripes |
+| `Abrosexual` | Abrosexual | |
+| `Sapphic` | Sapphic | Design, stripes with a violet |
+| `LabrysLesbian` | Labrys Lesbian | Design, violet with a black triangle and a labrys |
+| `StraightAlly` | Straight Ally | Design, black and white stripes with a rainbow chevron |
+| `Twink` | Twink | Design, interlocked Mars symbols |
 
 ### Countries (`FlagCategory.Country`)
 
@@ -125,6 +140,21 @@ The ten most populous countries. All flags are drawn at 3:2, so flags with other
 | `BdsmRights` | BDSM Rights | Leather stripes with a simplified red BDSM emblem |
 | `PuppyPride` | Puppy Pride | Diagonal stripes with a red bone |
 | `RubberPride` | Rubber Pride | Black with a kinked gold band outlined in red |
+| `LeatherTransgender` | Trans Leather | Leather layout in trans colors |
+| `LeatherAsexual` | Ace Leather | Leather layout in ace colors |
+| `LeatherBisexual` | Bi Leather | Leather layout in bi colors |
+| `LeatherPansexual` | Pan Leather | Leather layout in pan colors |
+| `LeatherNonBinary` | Non-Binary Leather | Leather layout in non-binary colors |
+
+The leather crossovers are community recolors with many variants; these keep the leather stripe pattern and red heart.
+
+### Community (`FlagCategory.Community`)
+
+| `FlagColor` | Name | Notes |
+| :--- | :--- | :--- |
+| `BearBrotherhood` | Bear Brotherhood | Seven stripes with a black paw |
+| `DisabilityPride` | Disability Pride | The 2021 low-flicker redesign |
+| `Neurodiversity` | Neurodiversity | Rainbow infinity on white |
 
 ---
 

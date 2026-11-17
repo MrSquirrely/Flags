@@ -34,6 +34,21 @@ public static class FlagCatalog {
         new(FlagColor.Demigirl, "Demigirl", FlagCategory.Pride, ["#7F7F7F", "#C4C4C4", "#FFAEC9", "#FFFFFF", "#FFAEC9", "#C4C4C4", "#7F7F7F"]),
         new(FlagColor.Demiboy, "Demiboy", FlagCategory.Pride, ["#7F7F7F", "#C4C4C4", "#9AD9EB", "#FFFFFF", "#9AD9EB", "#C4C4C4", "#7F7F7F"]),
         new(FlagColor.Intersex, "Intersex", FlagCategory.Pride, ["#FFD800"], "intersex"),
+        new(FlagColor.Transfeminine, "Transfeminine", FlagCategory.Pride, ["#73DEFF", "#FFE2EE", "#FFB5D6", "#FE8CBF", "#FFB5D6", "#FFE2EE", "#73DEFF"]),
+        new(FlagColor.Transmasculine, "Transmasculine", FlagCategory.Pride, ["#FF8ABD", "#CDF5FE", "#9AEBFF", "#74DFFF", "#9AEBFF", "#CDF5FE", "#FF8ABD"]),
+        new(FlagColor.Pangender, "Pangender", FlagCategory.Pride, ["#FFF798", "#FEDDCD", "#FFEBFB", "#FFFFFF", "#FFEBFB", "#FEDDCD", "#FFF798"]),
+        new(FlagColor.Genderflux, "Genderflux", FlagCategory.Pride, ["#F47694", "#F2A2B9", "#CECECE", "#7CE0F7", "#3ECDF9", "#FFF48D"]),
+        new(FlagColor.Neutrois, "Neutrois", FlagCategory.Pride, ["#FFFFFF", "#1F9F00", "#000000"]),
+        new(FlagColor.Androgyne, "Androgyne", FlagCategory.Pride, ["#FE007F", "#9832FF", "#00B8E7"]),
+        new(FlagColor.Maverique, "Maverique", FlagCategory.Pride, ["#FFF344", "#FFFFFF", "#F49622"]),
+        new(FlagColor.Xenogender, "Xenogender", FlagCategory.Pride, ["#FF6692", "#FF9A98", "#FFB883", "#FBFFA8", "#85BCFF", "#9D85FF", "#A510FF"]),
+        new(FlagColor.TwoSpirit, "Two-Spirit", FlagCategory.Pride, ["#E40303", "#FF8C00", "#FFED00", "#008026", "#24408E", "#732982"], "two-spirit"),
+        new(FlagColor.Queer, "Queer", FlagCategory.Pride, ["#000000", "#99D9EA", "#00A2E8", "#B5E61D", "#FFFFFF", "#FFC90E", "#FD6666", "#FFAEC9"]),
+        new(FlagColor.Abrosexual, "Abrosexual", FlagCategory.Pride, ["#75CA92", "#B3E4C7", "#FFFFFF", "#E695B5", "#D9446A"]),
+        new(FlagColor.Sapphic, "Sapphic", FlagCategory.Pride, ["#FD8BA8", "#FBF2FF", "#C76BC5"], "sapphic"),
+        new(FlagColor.LabrysLesbian, "Labrys Lesbian", FlagCategory.Pride, ["#A20DA2"], "labrys-lesbian"),
+        new(FlagColor.StraightAlly, "Straight Ally", FlagCategory.Pride, ["#000000", "#FFFFFF", "#000000", "#FFFFFF", "#000000", "#FFFFFF"], "straight-ally"),
+        new(FlagColor.Twink, "Twink", FlagCategory.Pride, ["#FFB0FF", "#FFFFFF", "#FFFF80"], "twink"),
 
         // Countries: the ten most populous, drawn on a common 3:2 canvas
         new(FlagColor.India, "India", FlagCategory.Country, ["#FF9933", "#FFFFFF", "#138808"], "india"),
@@ -51,7 +66,18 @@ public static class FlagCatalog {
         new(FlagColor.Leather, "Leather Pride", FlagCategory.Kink, ["#000000", "#2A2A7F", "#000000", "#2A2A7F", "#FFFFFF", "#2A2A7F", "#000000", "#2A2A7F", "#000000"], "leather"),
         new(FlagColor.BdsmRights, "BDSM Rights", FlagCategory.Kink, ["#000000", "#2A2A7F", "#000000", "#2A2A7F", "#FFFFFF", "#2A2A7F", "#000000", "#2A2A7F", "#000000"], "bdsm-rights"),
         new(FlagColor.PuppyPride, "Puppy Pride", FlagCategory.Kink, ["#000000", "#2A2A7F", "#FFFFFF", "#2A2A7F", "#000000"], "puppy-pride"),
-        new(FlagColor.RubberPride, "Rubber Pride", FlagCategory.Kink, ["#000000", "#FFD200", "#000000"], "rubber-pride")
+        new(FlagColor.RubberPride, "Rubber Pride", FlagCategory.Kink, ["#000000", "#FFD200", "#000000"], "rubber-pride"),
+        // Leather crossovers: community recolors of the leather layout in another flag's colors
+        new(FlagColor.LeatherTransgender, "Trans Leather", FlagCategory.Kink, ["#000000", "#5BCEFA", "#000000", "#F5A9B8", "#FFFFFF", "#F5A9B8", "#000000", "#5BCEFA", "#000000"], "leather-transgender"),
+        new(FlagColor.LeatherAsexual, "Ace Leather", FlagCategory.Kink, ["#000000", "#800080", "#000000", "#A3A3A3", "#FFFFFF", "#A3A3A3", "#000000", "#800080", "#000000"], "leather-asexual"),
+        new(FlagColor.LeatherBisexual, "Bi Leather", FlagCategory.Kink, ["#000000", "#D60270", "#000000", "#D60270", "#9B4F96", "#0038A8", "#000000", "#0038A8", "#000000"], "leather-bisexual"),
+        new(FlagColor.LeatherPansexual, "Pan Leather", FlagCategory.Kink, ["#000000", "#FF218C", "#000000", "#FF218C", "#FFD800", "#21B1FF", "#000000", "#21B1FF", "#000000"], "leather-pansexual"),
+        new(FlagColor.LeatherNonBinary, "Non-Binary Leather", FlagCategory.Kink, ["#000000", "#FCF434", "#000000", "#FFFFFF", "#9C59D1", "#FFFFFF", "#000000", "#FCF434", "#000000"], "leather-non-binary"),
+
+        // Community
+        new(FlagColor.BearBrotherhood, "Bear Brotherhood", FlagCategory.Community, ["#623804", "#D56300", "#FEDD63", "#FEE6B8", "#FFFFFF", "#555555", "#000000"], "bear-brotherhood"),
+        new(FlagColor.DisabilityPride, "Disability Pride", FlagCategory.Community, ["#595959"], "disability-pride"),
+        new(FlagColor.Neurodiversity, "Neurodiversity", FlagCategory.Community, ["#FFFFFF"], "neurodiversity")
     ];
 
     private static readonly FrozenDictionary<FlagColor, FlagDefinition> ByVariant = Definitions.ToFrozenDictionary(static d => d.Variant);
