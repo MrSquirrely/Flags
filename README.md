@@ -8,6 +8,12 @@ This project is inspired by the animation work of [Josh W. Comeau](https://www.j
 
 ## Installation & Setup
 
+Install the package from NuGet:
+
+```bash
+dotnet add package MrSquirrely.Flags
+```
+
 Your project needs to target `.NET 11.0` or higher. The library contains:
 * `Components/Flag.razor` - The `Flag` component.
 * `Components/Flag.razor.css` - Scoped CSS for the wave animation and the designed flags.
@@ -24,7 +30,7 @@ Add the namespaces to your `_Imports.razor` file:
 Blazor apps pick up the component's stylesheet through their `{App}.styles.css` bundle. Razor Pages and MVC apps link it directly:
 
 ```html
-<link href="~/_content/Flags/Flags.bundle.scp.css" rel="stylesheet" asp-append-version="true" />
+<link href="~/_content/MrSquirrely.Flags/MrSquirrely.Flags.bundle.scp.css" rel="stylesheet" asp-append-version="true" />
 ```
 
 ---
@@ -167,18 +173,13 @@ The leather crossovers are community recolors with many variants; these keep the
 
 ---
 
-## ⚖️ License & Open-Source Copyleft Requirements (GPLv3)
+## ⚖️ License (LGPLv3)
 
-This component library is distributed under the **GNU General Public License v3 (GPLv3)**. Because the GPLv3 includes strong copyleft protections, using this library impacts your software architecture depending on **how** you host or render your application.
+This library is licensed under the **GNU Lesser General Public License v3.0 or later** (`LGPL-3.0-or-later`). The LGPL is a set of extra permissions on top of the GPLv3, so both texts are included: [`LICENSE`](LICENSE) (LGPLv3) and [`COPYING`](COPYING) (GPLv3).
 
-Please review the architectural requirements below to determine if your website must also be open-sourced under the GPLv3:
+In short (this is a summary, not legal advice; the license text is what counts):
 
-### 1. Blazor Server & Static Rendering Mode (Safe / Proprietary Allowed)
-If your application runs via **Blazor Server** or utilizes **Static Rendering** (`RenderMode.Server` or `RenderMode.Static`), the component's underlying C# logic and library binaries remain strictly on your host hardware.
-* **The Rule:** Under GPLv3 Section 2, *"Mere interaction with a user through a computer network, with no transfer of a copy, is not conveying."* Since no compiled assemblies are transferred to the user's browser, the copyleft trigger is not pulled.
-* **Obligation:** You are **not** required to open-source your website. Your code can remain completely private, proprietary, and closed-source.
-
-### 2. Blazor WebAssembly Mode (Triggers Open-Source Mandate)
-If you configure this component to load and execute via **Blazor WebAssembly (WASM)** (`RenderMode.WebAssembly`), the server transmits the compiled library `.dll` assemblies to the visitor's computer to execute locally within their browser context.
-* **The Rule:** Delivering compiled software bundles directly to a client's machine constitutes distribution ("conveying") under the GPLv3. Because your website's proprietary code directly interacts with, packages, or links against the GPLv3 component library to run in the client bundle, the complete client-side application becomes a combined work.
-* **Obligation:** **You MUST make the full source code of your client application available under a GPLv3-compatible open-source license** to any users interacting with your application.
+* **Using the library:** You can use `MrSquirrely.Flags` in any application, open source or proprietary, in every render mode, including Blazor WebAssembly. Your own code does not have to be released under the LGPL.
+* **Shipping it to users:** When you distribute the library (for example, the `.dll` sent to the browser by a WebAssembly app, or a desktop app), include the license notice and let recipients replace the library with a modified version. Referencing it as the separate `MrSquirrely.Flags` assembly, as the NuGet package does, keeps that possible.
+* **Changing the library:** If you modify the library itself and distribute it, release those modifications under the LGPLv3.
+* **Server-side rendering:** With Blazor Server or static rendering, the library stays on your server and is not distributed to visitors.
