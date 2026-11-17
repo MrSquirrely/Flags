@@ -8,7 +8,7 @@ This project is inspired by the animation work of [Josh W. Comeau](https://www.j
 
 ## Installation & Setup
 
-Your project needs to target `.NET 9.0` or higher. The library contains:
+Your project needs to target `.NET 11.0` or higher. The library contains:
 * `Components/Flag.razor` - The `Flag` component.
 * `Components/Flag.razor.css` - Scoped CSS for the wave animation and the designed flags.
 * `wwwroot/flags/*.svg` - The designs for flags that are more than plain stripes (Progress Pride, countries, kink flags, ...).
