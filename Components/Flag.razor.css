@@ -57,7 +57,7 @@
     }
 }
 
-/* Designed flags: the SVG is layered over the stripe fallback. Paths are relative to this stylesheet, which lives in _content/Flags */
+/* Designed flags: the SVG is layered over the stripe fallback. Paths are relative to this stylesheet, which lives in _content/MrSquirrely.Flags */
 .flag-bangladesh > .column {
     background-image: url("flags/bangladesh.svg"), var(--flag-bg);
 }
