@@ -66,6 +66,10 @@
     background-image: url("flags/bdsm-rights.svg"), var(--flag-bg);
 }
 
+.flag-bear-brotherhood > .column {
+    background-image: url("flags/bear-brotherhood.svg"), var(--flag-bg);
+}
+
 .flag-brazil > .column {
     background-image: url("flags/brazil.svg"), var(--flag-bg);
 }
@@ -82,6 +86,10 @@
     background-image: url("flags/demisexual.svg"), var(--flag-bg);
 }
 
+.flag-disability-pride > .column {
+    background-image: url("flags/disability-pride.svg"), var(--flag-bg);
+}
+
 .flag-india > .column {
     background-image: url("flags/india.svg"), var(--flag-bg);
 }
@@ -94,12 +102,40 @@
     background-image: url("flags/intersex-inclusive-progress.svg"), var(--flag-bg);
 }
 
+.flag-labrys-lesbian > .column {
+    background-image: url("flags/labrys-lesbian.svg"), var(--flag-bg);
+}
+
 .flag-leather > .column {
     background-image: url("flags/leather.svg"), var(--flag-bg);
 }
 
+.flag-leather-asexual > .column {
+    background-image: url("flags/leather-asexual.svg"), var(--flag-bg);
+}
+
+.flag-leather-bisexual > .column {
+    background-image: url("flags/leather-bisexual.svg"), var(--flag-bg);
+}
+
+.flag-leather-non-binary > .column {
+    background-image: url("flags/leather-non-binary.svg"), var(--flag-bg);
+}
+
+.flag-leather-pansexual > .column {
+    background-image: url("flags/leather-pansexual.svg"), var(--flag-bg);
+}
+
+.flag-leather-transgender > .column {
+    background-image: url("flags/leather-transgender.svg"), var(--flag-bg);
+}
+
 .flag-mexico > .column {
     background-image: url("flags/mexico.svg"), var(--flag-bg);
+}
+
+.flag-neurodiversity > .column {
+    background-image: url("flags/neurodiversity.svg"), var(--flag-bg);
 }
 
 .flag-pakistan > .column {
@@ -120,6 +156,22 @@
 
 .flag-rubber-pride > .column {
     background-image: url("flags/rubber-pride.svg"), var(--flag-bg);
+}
+
+.flag-sapphic > .column {
+    background-image: url("flags/sapphic.svg"), var(--flag-bg);
+}
+
+.flag-straight-ally > .column {
+    background-image: url("flags/straight-ally.svg"), var(--flag-bg);
+}
+
+.flag-twink > .column {
+    background-image: url("flags/twink.svg"), var(--flag-bg);
+}
+
+.flag-two-spirit > .column {
+    background-image: url("flags/two-spirit.svg"), var(--flag-bg);
 }
 
 .flag-united-states > .column {
